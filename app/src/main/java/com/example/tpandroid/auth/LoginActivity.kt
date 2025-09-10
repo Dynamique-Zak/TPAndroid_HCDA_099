@@ -17,6 +17,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shadow
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -24,6 +25,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.tpandroid.R
+import com.example.tpandroid.article.ListArticleActivity
+import com.example.tpandroid.common.AppContextHelper
 import com.example.tpandroid.ui.theme.EniButton
 import com.example.tpandroid.ui.theme.EniLogo
 import com.example.tpandroid.ui.theme.EniTextField
@@ -43,18 +46,20 @@ class LoginActivity : ComponentActivity() {
 
 @Composable
 fun LoginPage() {
+
+    val context = LocalContext.current
+
     TemplatePage {
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
             modifier = Modifier
                 .fillMaxSize()
                 .padding(40.dp)
-                .padding(top = 10.dp)
         ) {
             EniLogo()
-            Spacer(modifier = Modifier.height(180.dp))
+            Spacer(modifier = Modifier.height(120.dp))
             TitlePage("Login")
-            Spacer(modifier = Modifier.height(60.dp))
+            Spacer(modifier = Modifier.height(40.dp))
             WrapPadding {
                 EniTextField(hintText = "Veuillez saisir un email")
             }
@@ -62,7 +67,20 @@ fun LoginPage() {
                 EniTextField(hintText = "Veuillez saisir un mot de passe")
             }
             WrapPadding {
-                EniButton(label = "Connexion")
+                EniButton(label = "Connexion", onClick = {
+                    AppContextHelper.openActivity(context, ListArticleActivity::class)
+                })
+            }
+            Spacer(modifier = Modifier.weight(1f))
+            WrapPadding {
+                EniButton(label = "Sign Up", onClick = {
+                    AppContextHelper.openActivity(context, SignUpActivity::class)
+                })
+            }
+            WrapPadding {
+                EniButton(label = "Reset Password", onClick = {
+                    AppContextHelper.openActivity(context, ResetPasswordActivity::class)
+                })
             }
         }
     }

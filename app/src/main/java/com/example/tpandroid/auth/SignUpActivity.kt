@@ -39,11 +39,10 @@ fun SignUpPage() {
             modifier = Modifier
                 .fillMaxSize()
                 .padding(40.dp)
-                .padding(top = 10.dp)
         ) {
-            Spacer(modifier = Modifier.height(140.dp))
+            Spacer(modifier = Modifier.height(80.dp))
             TitlePage("Sign Up")
-            Spacer(modifier = Modifier.height(40.dp))
+            Spacer(modifier = Modifier.height(20.dp))
             WrapPadding {
                 EniTextField(hintText = "Pseudo")
             }

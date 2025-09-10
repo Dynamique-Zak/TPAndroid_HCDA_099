@@ -22,6 +22,25 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity
+            android:name=".auth.SignUpActivity"
+            android:exported="false"
+            android:theme="@style/Theme.TPAndroid">
+        </activity>
+
+        <activity
+            android:name=".auth.ResetPasswordActivity"
+            android:exported="false"
+            android:theme="@style/Theme.TPAndroid">
+        </activity>
+
+        <activity
+            android:name=".article.ListArticleActivity"
+            android:exported="false"
+            android:theme="@style/Theme.TPAndroid">
+        </activity>
+
     </application>
 
 </manifest>
