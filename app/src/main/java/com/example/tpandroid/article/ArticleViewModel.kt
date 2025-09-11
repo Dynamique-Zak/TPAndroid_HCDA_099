@@ -13,7 +13,8 @@ class ArticleViewModel : ViewModel() {
 
         viewModelScope.launch {
 
-            articles.value = ArticleService.ArticleApi.articleService.getArticles()
+            val apiResponse = ArticleService.ArticleApi.articleService.getArticles()
+            articles.value = apiResponse.data!!
         }
     }
 }
