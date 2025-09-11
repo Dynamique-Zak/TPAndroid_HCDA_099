@@ -55,8 +55,8 @@ fun ListArticlePage(viewModel: ArticleViewModel) {
             TitlePage("Articles")
             Spacer(modifier = Modifier.height(40.dp))
             EniButton(
-                label = "Ajouter un faux article", onClick = {
-                    viewModel.addMockArticle()
+                label = "Rachaîchir les articles", onClick = {
+                    viewModel.reloadArticles()
                 })
             ArticleListView(viewModel)
         }

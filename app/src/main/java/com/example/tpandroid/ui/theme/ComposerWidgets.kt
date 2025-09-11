@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
@@ -142,13 +143,14 @@ fun ArticleCard(article: Article) {
         Column {
             Row(modifier = Modifier.padding(10.dp)) {
                 AsyncImage(
-                    model = "/url/todo",
+                    model = article.imgPath,
                     contentDescription = "",
-                    placeholder = painterResource(R.drawable.article_placeholder)
+                    placeholder = painterResource(R.drawable.article_placeholder),
+                    modifier = Modifier.width(92.dp)
                 )
                 Column(modifier = Modifier.padding(10.dp)) {
                     Text(article.title, fontWeight = FontWeight.Bold)
-                    Text(article.description, color = Color(0xFF555555))
+                    Text(article.desc, color = Color(0xFF555555))
                 }
             }
             Box(
