@@ -38,6 +38,7 @@ import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import com.example.tpandroid.R
 import com.example.tpandroid.article.Article
+import com.example.tpandroid.common.ProgressDialog
 
 @Composable
 fun BackgroundImage(@DrawableRes backgroundId: Int = R.drawable.mobile_bg_01) {
@@ -59,6 +60,7 @@ fun TemplatePage(
             Box(modifier = Modifier.padding(innerPadding)) {
                 BackgroundImage(backgroundId)
                 content()
+                ProgressDialog()
             }
         }
     }
