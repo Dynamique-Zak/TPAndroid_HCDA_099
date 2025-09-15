@@ -38,6 +38,7 @@ import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import com.example.tpandroid.R
 import com.example.tpandroid.article.Article
+import com.example.tpandroid.common.AlertDialog
 import com.example.tpandroid.common.ProgressDialog
 
 @Composable
@@ -61,6 +62,7 @@ fun TemplatePage(
                 BackgroundImage(backgroundId)
                 content()
                 ProgressDialog()
+                AlertDialog()
             }
         }
     }

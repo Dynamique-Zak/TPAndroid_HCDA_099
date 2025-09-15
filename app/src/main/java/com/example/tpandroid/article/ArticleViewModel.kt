@@ -2,6 +2,7 @@ package com.example.tpandroid.article
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.tpandroid.common.AppAlertHelpers
 import com.example.tpandroid.common.AppProgressHelpers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -29,6 +30,9 @@ class ArticleViewModel : ViewModel() {
 
             // Fermer ecran de chargement à la fin de l'appel async
             AppProgressHelpers.get().close()
+
+            // Afficher le message du back
+            AppAlertHelpers.get().show(apiResponse.message)
         }
 
     }
