@@ -14,7 +14,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import kotlinx.coroutines.flow.MutableStateFlow
 
-data class AlertModelData(var isShow : Boolean = false, var message : String = "") {
+data class AlertModelData(var isShow : Boolean = false, var message : String = "", var onClose : () -> Unit = {}) {
 }
 
 class AppAlertHelpers {
@@ -30,12 +30,14 @@ class AppAlertHelpers {
 
     var alertModelData = MutableStateFlow(AlertModelData());
 
-    fun show(message: String){
-        alertModelData.value = alertModelData.value.copy(isShow = true, message = message)
+    fun show(message: String, onClose : () -> Unit = {}){
+        alertModelData.value = alertModelData.value.copy(isShow = true, message = message, onClose = onClose)
     }
 
     fun close(){
         alertModelData.value = alertModelData.value.copy(isShow = false)
+        // Appel lambda on close
+        alertModelData.value.onClose()
     }
 }
 

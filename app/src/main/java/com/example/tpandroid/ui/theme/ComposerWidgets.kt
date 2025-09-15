@@ -101,9 +101,9 @@ fun TitlePage(title: String = "Titre") {
 }
 
 @Composable
-fun EniTextField(hintText: String = "Veuillez saisir...") {
+fun EniTextField(hintText: String = "Veuillez saisir...", value: String = "", onValueChange: (String) -> Unit = {}) {
     TextField(
-        value = "", onValueChange = {},
+        value = value, onValueChange = onValueChange,
         modifier = Modifier.fillMaxWidth(),
         colors = TextFieldDefaults.colors(
             unfocusedContainerColor = Color(0x44000000),
