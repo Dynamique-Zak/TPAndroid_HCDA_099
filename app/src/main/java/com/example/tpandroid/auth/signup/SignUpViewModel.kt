@@ -3,10 +3,7 @@ package com.example.tpandroid.auth.signup
 import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.tpandroid.article.ListArticleActivity
-import com.example.tpandroid.auth.AuthContext
 import com.example.tpandroid.auth.AuthService
-import com.example.tpandroid.auth.LoginRequest
 import com.example.tpandroid.auth.SignUpRequest
 import com.example.tpandroid.auth.login.LoginActivity
 import com.example.tpandroid.common.AppAlertHelpers

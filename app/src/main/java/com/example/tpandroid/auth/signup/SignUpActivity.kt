@@ -44,11 +44,11 @@ class SignUpActivity : ComponentActivity() {
 }
 fun updateSignUpField(
     viewModel: MutableStateFlow<SignUpViewModel>,
-    update: (SignUpRequest) -> Unit
+    update: (SignUpRequest) -> SignUpRequest
 ) {
-    update(viewModel.value.signUpRequest)
+    val copy = update(viewModel.value.signUpRequest)
     viewModel.value = viewModel.value.copy(
-        signUpRequest = viewModel.value.signUpRequest
+        signUpRequest = copy
     )
 }
 
@@ -72,43 +72,43 @@ fun SignUpPage(viewModel: MutableStateFlow<SignUpViewModel>) {
             WrapPadding {
                 EniTextField(
                     value = viewModelState.signUpRequest.pseudo,
-                    onValueChange = { value -> { updateSignUpField(viewModel) { it -> it.pseudo = value; } } },
+                    onValueChange = { value -> updateSignUpField(viewModel, update = { it -> it.copy(pseudo = value) }) },
                     hintText = "Pseudo")
             }
             WrapPadding {
                 EniTextField(
                     value = viewModelState.signUpRequest.email,
-                    onValueChange = { value -> { updateSignUpField(viewModel) { it -> it.email = value; } } },
+                    onValueChange = { value -> updateSignUpField(viewModel, update = { it -> it.copy(email = value) }) },
                     hintText = "Email")
             }
             WrapPadding {
                 EniTextField(
                     value = viewModelState.signUpRequest.password,
-                    onValueChange = { value -> { updateSignUpField(viewModel) { it -> it.passwordConfirm = value; } } },
+                    onValueChange = { value -> updateSignUpField(viewModel, update = { it -> it.copy(password = value) }) },
                     hintText = "Password")
             }
             WrapPadding {
                 EniTextField(
                     value = viewModelState.signUpRequest.passwordConfirm,
-                    onValueChange = { value -> { updateSignUpField(viewModel) { it -> it.passwordConfirm = value; } } },
+                    onValueChange = { value -> updateSignUpField(viewModel, update = { it -> it.copy(passwordConfirm = value) }) },
                     hintText = "Password Confirmation")
             }
             WrapPadding {
                 EniTextField(
                     value = viewModelState.signUpRequest.cityCode,
-                    onValueChange = { value -> { updateSignUpField(viewModel) { it -> it.cityCode = value; } } },
+                    onValueChange = { value -> updateSignUpField(viewModel, update = { it -> it.copy(cityCode = value) }) },
                     hintText = "City Code")
             }
             WrapPadding {
                 EniTextField(
                     value = viewModelState.signUpRequest.city,
-                    onValueChange = { value -> { updateSignUpField(viewModel) { it -> it.city = value; } } },
+                    onValueChange = { value -> updateSignUpField(viewModel, update = { it -> it.copy(city = value)  }) },
                     hintText = "City")
             }
             WrapPadding {
                 EniTextField(
                     value = viewModelState.signUpRequest.phone,
-                    onValueChange = { value -> { updateSignUpField(viewModel) { it -> it.phone = value; } } },
+                    onValueChange = { value -> updateSignUpField(viewModel, update = { it -> it.copy(phone = value) }) },
                     hintText = "Phone Number")
             }
             WrapPadding {
