@@ -17,6 +17,10 @@ data class SignUpRequest(var passwordConfirm : String = "password", var email: S
 
 }
 
+data class ResetPasswordRequest(var email: String = "user@example.com"){
+}
+
+
 interface AuthService {
 
     @POST("login")
@@ -24,6 +28,10 @@ interface AuthService {
 
     @POST("signup")
     suspend fun signup(@Body signUpRequest: SignUpRequest) : ApiResponse<User>
+
+    @POST("reset-password")
+    suspend fun resetPassword(@Body resetPasswordRequest: ResetPasswordRequest) : ApiResponse<String>
+
 
     object AuthApi {
         val authService : AuthService by lazy { retrofit.create(AuthService::class.java) }

@@ -7,6 +7,8 @@ import com.example.tpandroid.article.ListArticleActivity
 import com.example.tpandroid.auth.AuthContext
 import com.example.tpandroid.auth.AuthService
 import com.example.tpandroid.auth.LoginRequest
+import com.example.tpandroid.auth.ResetPasswordPage
+import com.example.tpandroid.auth.ResetPasswordRequest
 import com.example.tpandroid.common.AppAlertHelpers
 import com.example.tpandroid.common.AppContextHelper
 import com.example.tpandroid.common.AppProgressHelpers
@@ -14,7 +16,7 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlin.time.Duration.Companion.seconds
 
-data class AuthViewModel(var email: String, var password: String) : ViewModel() {
+data class AuthViewModel(var email: String = "", var password: String = "", var resetPasswordRequest: ResetPasswordRequest = ResetPasswordRequest()) : ViewModel() {
 
     fun callLoginApi(context: Context){
 
@@ -49,4 +51,27 @@ data class AuthViewModel(var email: String, var password: String) : ViewModel() 
         }
 
     }
+
+    fun callResetPasswordApi(){
+
+        // Affiche un ecran de chargement avant un appel async
+        AppProgressHelpers.get().show("Envoie du mail...")
+
+        viewModelScope.launch {
+
+            // Fake wait 1 sec
+            delay(duration = 1.seconds)
+
+            val apiResponse = AuthService.AuthApi.authService.resetPassword(resetPasswordRequest)
+
+            // Fermer ecran de chargement à la fin de l'appel async
+            AppProgressHelpers.get().close()
+
+            // Afficher le message
+            AppAlertHelpers.get().show(apiResponse.message)
+
+        }
+
+    }
+
 }
