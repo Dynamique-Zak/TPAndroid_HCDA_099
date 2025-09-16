@@ -16,5 +16,17 @@ class AppContextHelper {
             val intent = Intent(context, activityClass.java)
             context.startActivity(intent)
         }
+
+        /**
+         * Key : le nom du param à envoyer (ex: id)
+         * Value : la valeur (ex "1")
+         */
+        fun openActivityWithString(context: Context, activityClass: KClass<*>, key: String, value: String){
+            val intent = Intent(context, activityClass.java)
+
+            intent.putExtra(key, value)
+
+            context.startActivity(intent)
+        }
     }
 }

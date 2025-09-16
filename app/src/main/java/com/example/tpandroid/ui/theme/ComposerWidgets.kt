@@ -29,6 +29,7 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shadow
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -38,7 +39,9 @@ import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import com.example.tpandroid.R
 import com.example.tpandroid.article.Article
+import com.example.tpandroid.article.ArticleDetailsActivity
 import com.example.tpandroid.common.AlertDialog
+import com.example.tpandroid.common.AppContextHelper
 import com.example.tpandroid.common.ProgressDialog
 
 @Composable
@@ -143,6 +146,8 @@ fun EniButton(label: String = "Invalid", onClick: () -> Unit = {}) {
 
 @Composable
 fun ArticleCard(article: Article) {
+    val context = LocalContext.current
+
     ElevatedCard(modifier = Modifier.fillMaxWidth()) {
         Column {
             Row(modifier = Modifier.padding(10.dp)) {
@@ -155,6 +160,12 @@ fun ArticleCard(article: Article) {
                 Column(modifier = Modifier.padding(10.dp)) {
                     Text(article.title, fontWeight = FontWeight.Bold)
                     Text(article.desc, color = Color(0xFF555555))
+                    EniButton("Voir") {
+                        AppContextHelper.openActivityWithString(
+                            context,
+                            ArticleDetailsActivity::class,
+                            "id", article.id)
+                    }
                 }
             }
             Box(

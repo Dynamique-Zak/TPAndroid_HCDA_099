@@ -34,6 +34,12 @@
             android:name=".auth.ResetPasswordActivity"
             android:exported="true"
             android:theme="@style/Theme.TPAndroid">
+        </activity>
+
+        <activity
+            android:name=".article.ListArticleActivity"
+            android:exported="true"
+            android:theme="@style/Theme.TPAndroid">
 
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -43,7 +49,7 @@
         </activity>
 
         <activity
-            android:name=".article.ListArticleActivity"
+            android:name=".article.ArticleDetailsActivity"
             android:exported="true"
             android:theme="@style/Theme.TPAndroid">
         </activity>

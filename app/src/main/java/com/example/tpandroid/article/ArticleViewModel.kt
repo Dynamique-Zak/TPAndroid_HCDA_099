@@ -13,7 +13,30 @@ import kotlin.time.Duration.Companion.seconds
 class ArticleViewModel : ViewModel() {
 
     var articles = MutableStateFlow<List<Article>>(mutableListOf())
-    var isLoading = MutableStateFlow<Boolean>(false)
+
+    var article = MutableStateFlow<Article>(Article("4",
+        "Crevette nutella", desc = "Meilleur plat",
+        author = "Olivia",
+        imgPath = "uneimage-saumon-nutella.jpg"
+        ))
+    fun reloadArticleDetail(id: String){
+        // Affiche un ecran de chargement avant un appel async
+        AppProgressHelpers.get().show("Chargement de l'article")
+
+        viewModelScope.launch {
+
+            // Fake wait 1 sec
+            delay(duration = 1.seconds)
+
+            val apiResponse = ArticleService.ArticleApi.articleService.getArticleById(id)
+            article.value = apiResponse.data!!
+
+            AppProgressHelpers.get().close()
+
+            // Afficher le message du back
+            AppAlertHelpers.get().show(apiResponse.message)
+        }
+    }
 
     fun reloadArticles(){
 

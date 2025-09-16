@@ -49,7 +49,6 @@ data class AuthViewModel(var email: String = "", var password: String = "", var 
                 }
             })
         }
-
     }
 
     fun callResetPasswordApi(){
