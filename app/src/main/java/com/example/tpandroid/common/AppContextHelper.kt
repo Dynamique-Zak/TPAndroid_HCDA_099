@@ -3,11 +3,16 @@ package com.example.tpandroid.common
 import android.content.Context
 import android.content.Intent
 import kotlin.reflect.KClass
+import kotlin.time.Duration
+import kotlin.time.Duration.Companion.milliseconds
+import kotlin.time.Duration.Companion.seconds
 
 class AppContextHelper {
 
     // Tout ce qui est à l'intérieur est statique
     companion object {
+
+        val debugLoading : Duration = 1.milliseconds
 
         /**
          * activityClass: Typage en parametre (ex: MainActivity::class)

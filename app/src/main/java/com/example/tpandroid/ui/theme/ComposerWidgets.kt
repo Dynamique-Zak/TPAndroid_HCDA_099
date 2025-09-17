@@ -40,6 +40,7 @@ import coil.compose.AsyncImage
 import com.example.tpandroid.R
 import com.example.tpandroid.article.Article
 import com.example.tpandroid.article.ArticleDetailsActivity
+import com.example.tpandroid.article.ArticleFormActivity
 import com.example.tpandroid.common.AlertDialog
 import com.example.tpandroid.common.AppContextHelper
 import com.example.tpandroid.common.ProgressDialog
@@ -164,7 +165,13 @@ fun ArticleCard(article: Article) {
                         AppContextHelper.openActivityWithString(
                             context,
                             ArticleDetailsActivity::class,
-                            "id", article.id)
+                            "id", article.id!!)
+                    }
+                    EniButton("Editer") {
+                        AppContextHelper.openActivityWithString(
+                            context,
+                            ArticleFormActivity::class,
+                            "id", article.id!!)
                     }
                 }
             }

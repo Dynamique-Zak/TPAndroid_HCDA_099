@@ -11,6 +11,7 @@ import com.example.tpandroid.auth.ResetPasswordPage
 import com.example.tpandroid.auth.ResetPasswordRequest
 import com.example.tpandroid.common.AppAlertHelpers
 import com.example.tpandroid.common.AppContextHelper
+import com.example.tpandroid.common.AppContextHelper.Companion.debugLoading
 import com.example.tpandroid.common.AppProgressHelpers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -26,7 +27,7 @@ data class AuthViewModel(var email: String = "", var password: String = "", var 
         viewModelScope.launch {
 
             // Fake wait 1 sec
-            delay(duration = 1.seconds)
+            delay(duration = debugLoading)
 
             // DTO pour request body a partir des valeurs saisies
             val loginRequest = LoginRequest(email, password)
@@ -59,7 +60,7 @@ data class AuthViewModel(var email: String = "", var password: String = "", var 
         viewModelScope.launch {
 
             // Fake wait 1 sec
-            delay(duration = 1.seconds)
+            delay(duration = debugLoading)
 
             val apiResponse = AuthService.AuthApi.authService.resetPassword(resetPasswordRequest)
 
