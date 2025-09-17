@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.tpandroid.common.AppAlertHelpers
 import com.example.tpandroid.common.AppContextHelper.Companion.debugLoading
 import com.example.tpandroid.common.AppProgressHelpers
+import com.example.tpandroid.common.commonCallApi
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
@@ -41,23 +42,12 @@ class ArticleViewModel : ViewModel() {
 
     fun reloadArticles(){
 
-        // Affiche un ecran de chargement avant un appel async
-        AppProgressHelpers.get().show("Chargement des articles")
-
-        viewModelScope.launch {
-            
-            // Fake wait 2 sec
-            delay(duration = debugLoading)
-
+        commonCallApi<List<Article>>("Chargement des articles", viewModelScope, doAction = {
             val apiResponse = ArticleService.ArticleApi.articleService.getArticles()
             articles.value = apiResponse.data!!
 
-            // Fermer ecran de chargement à la fin de l'appel async
-            AppProgressHelpers.get().close()
-
-            // Afficher le message du back
-            AppAlertHelpers.get().show(apiResponse.message)
-        }
+            apiResponse // return implicite
+        })
     }
 
     fun saveArticle(){
