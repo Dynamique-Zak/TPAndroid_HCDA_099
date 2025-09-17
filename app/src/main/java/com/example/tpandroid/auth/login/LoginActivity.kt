@@ -15,8 +15,10 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.example.tpandroid.R
 import com.example.tpandroid.article.ListArticleActivity
 import com.example.tpandroid.auth.ResetPasswordActivity
 import com.example.tpandroid.auth.signup.SignUpActivity
@@ -62,22 +64,22 @@ fun LoginPage(viewModel: MutableStateFlow<AuthViewModel>) {
         ) {
             EniLogo()
             Spacer(modifier = Modifier.height(120.dp))
-            TitlePage("Login")
+            TitlePage(stringResource(R.string.login_title))
             Spacer(modifier = Modifier.height(40.dp))
             WrapPadding {
                 EniTextField(
                     value = viewModelState.email,
                     onValueChange = { value -> viewModel.value = viewModel.value.copy(email = value)},
-                    hintText = "Veuillez saisir un email")
+                    hintText = stringResource(R.string.field_email_hint))
             }
             WrapPadding {
                 EniTextField(
                     value = viewModelState.password,
                     onValueChange = { value -> viewModel.value = viewModel.value.copy(password = value)},
-                    hintText = "Veuillez saisir un mot de passe")
+                    hintText = stringResource(R.string.field_password_hint))
             }
             WrapPadding {
-                EniButton(label = "Connexion", onClick = {
+                EniButton(label = stringResource(R.string.btn_login), onClick = {
                     viewModelState.callLoginApi(onLoginSuccess = {
                         AppContextHelper.openActivity(context, ListArticleActivity::class)
                     })
