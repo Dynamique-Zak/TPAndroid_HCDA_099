@@ -146,7 +146,7 @@ fun EniButton(label: String = "Invalid", onClick: () -> Unit = {}) {
 }
 
 @Composable
-fun ArticleCard(article: Article) {
+fun ArticleCard(article: Article, onRequestDelete : (id: String) -> Unit = {}) {
     val context = LocalContext.current
 
     ElevatedCard(modifier = Modifier.fillMaxWidth()) {
@@ -172,6 +172,9 @@ fun ArticleCard(article: Article) {
                             context,
                             ArticleFormActivity::class,
                             "id", article.id!!)
+                    }
+                    EniButton("Delete") {
+                        onRequestDelete(article.id!!)
                     }
                 }
             }

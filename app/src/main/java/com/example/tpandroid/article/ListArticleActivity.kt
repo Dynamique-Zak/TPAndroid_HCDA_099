@@ -70,7 +70,9 @@ fun ArticleListView(viewModel: ArticleViewModel) {
     LazyColumn {
         items(articles) { article ->
             WrapPadding {
-                ArticleCard(article)
+                ArticleCard(article, onRequestDelete = {
+                    id -> viewModel.deleteArticle(id)
+                })
             }
         }
     }

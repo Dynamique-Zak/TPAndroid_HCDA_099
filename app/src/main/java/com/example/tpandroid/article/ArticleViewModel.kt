@@ -78,4 +78,26 @@ class ArticleViewModel : ViewModel() {
             AppAlertHelpers.get().show(apiResponse.message)
         }
     }
+
+    fun deleteArticle(id: String){
+        // Affiche un ecran de chargement avant un appel async
+        AppProgressHelpers.get().show("Suppression de l'article")
+
+        viewModelScope.launch {
+
+            // Fake wait 1 sec
+            delay(duration = debugLoading)
+
+            val apiResponse = ArticleService.ArticleApi.articleService.deleteArticle(id)
+
+            AppProgressHelpers.get().close()
+
+            // Afficher le message du back
+            AppAlertHelpers.get().show(apiResponse.message, onClose = {
+                // Reload les articles
+                reloadArticles()
+            })
+
+        }
+    }
 }
