@@ -17,6 +17,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.example.tpandroid.article.ListArticleActivity
 import com.example.tpandroid.auth.ResetPasswordActivity
 import com.example.tpandroid.auth.signup.SignUpActivity
 import com.example.tpandroid.common.AppContextHelper
@@ -77,7 +78,9 @@ fun LoginPage(viewModel: MutableStateFlow<AuthViewModel>) {
             }
             WrapPadding {
                 EniButton(label = "Connexion", onClick = {
-                    viewModelState.callLoginApi(context)
+                    viewModelState.callLoginApi(onLoginSuccess = {
+                        AppContextHelper.openActivity(context, ListArticleActivity::class)
+                    })
                 })
             }
             Spacer(modifier = Modifier.weight(1f))

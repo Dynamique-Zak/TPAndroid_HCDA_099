@@ -20,6 +20,8 @@ import androidx.compose.ui.unit.dp
 import com.example.tpandroid.R
 import com.example.tpandroid.auth.SignUpRequest
 import com.example.tpandroid.auth.login.AuthViewModel
+import com.example.tpandroid.auth.login.LoginActivity
+import com.example.tpandroid.common.AppContextHelper
 import com.example.tpandroid.ui.theme.EniButton
 import com.example.tpandroid.ui.theme.EniTextField
 import com.example.tpandroid.ui.theme.TemplatePage
@@ -113,7 +115,9 @@ fun SignUpPage(viewModel: MutableStateFlow<SignUpViewModel>) {
             }
             WrapPadding {
                 EniButton(label = "Confirm", onClick = {
-                    viewModelState.callSignUpApi(context)
+                    viewModelState.callSignUpApi(onSignUpSuccess = {
+                        AppContextHelper.openActivity(context, LoginActivity::class)
+                    })
                 })
             }
         }

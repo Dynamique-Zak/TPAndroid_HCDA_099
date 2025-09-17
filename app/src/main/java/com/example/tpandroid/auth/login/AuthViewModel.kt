@@ -19,7 +19,7 @@ import kotlin.time.Duration.Companion.seconds
 
 data class AuthViewModel(var email: String = "", var password: String = "", var resetPasswordRequest: ResetPasswordRequest = ResetPasswordRequest()) : ViewModel() {
 
-    fun callLoginApi(context: Context){
+    fun callLoginApi(onLoginSuccess : () -> Unit = {}){
 
         // Affiche un ecran de chargement avant un appel async
         AppProgressHelpers.get().show("Tentative de connexion")
@@ -46,7 +46,7 @@ data class AuthViewModel(var email: String = "", var password: String = "", var 
             AppAlertHelpers.get().show(apiResponse.message, onClose = {
                 // Si Code success alors ouvrir la page list article
                 if (apiResponse.code.equals("200")){
-                    AppContextHelper.openActivity(context, ListArticleActivity::class)
+                   onLoginSuccess()
                 }
             })
         }
