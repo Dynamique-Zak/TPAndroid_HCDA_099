@@ -4,6 +4,7 @@ import androidx.annotation.DrawableRes
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -14,9 +15,15 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Delete
+import androidx.compose.material.icons.filled.Edit
+import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ElevatedCard
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
@@ -34,6 +41,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
@@ -151,30 +159,44 @@ fun ArticleCard(article: Article, onRequestDelete : (id: String) -> Unit = {}) {
 
     ElevatedCard(modifier = Modifier.fillMaxWidth()) {
         Column {
-            Row(modifier = Modifier.padding(10.dp)) {
+            Row(horizontalArrangement = Arrangement.SpaceBetween, modifier = Modifier.padding(10.dp)) {
                 AsyncImage(
                     model = article.imgPath,
                     contentDescription = "",
                     placeholder = painterResource(R.drawable.article_placeholder),
                     modifier = Modifier.width(92.dp)
                 )
-                Column(modifier = Modifier.padding(10.dp)) {
+                Column(modifier = Modifier.padding(10.dp).weight(2f)) {
                     Text(article.title, fontWeight = FontWeight.Bold)
-                    Text(article.desc, color = Color(0xFF555555))
-                    EniButton("Voir") {
+                    Text(article.desc, color = Color(0xFF555555), maxLines = 3, overflow = TextOverflow.Ellipsis)
+                }
+                Column {
+                    IconButton(onClick = {
                         AppContextHelper.openActivityWithString(
                             context,
                             ArticleDetailsActivity::class,
                             "id", article.id!!)
+                    }) {
+                        Icon(
+                            imageVector = Icons.Default.Search,
+                            contentDescription = "")
                     }
-                    EniButton("Editer") {
+                    IconButton(onClick = {
                         AppContextHelper.openActivityWithString(
                             context,
                             ArticleFormActivity::class,
                             "id", article.id!!)
+                    }) {
+                        Icon(
+                            imageVector = Icons.Default.Edit,
+                            contentDescription = "")
                     }
-                    EniButton("Delete") {
+                    IconButton(onClick = {
                         onRequestDelete(article.id!!)
+                    }) {
+                        Icon(
+                            imageVector = Icons.Default.Delete,
+                            contentDescription = "")
                     }
                 }
             }
