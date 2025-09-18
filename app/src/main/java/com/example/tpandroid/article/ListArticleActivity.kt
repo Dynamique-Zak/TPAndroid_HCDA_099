@@ -1,5 +1,6 @@
 package com.example.tpandroid.article
 
+import android.app.Application
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -16,6 +17,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.tpandroid.R
@@ -33,7 +35,7 @@ class ListArticleActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
 
-        viewModel = ArticleViewModel()
+        viewModel = ArticleViewModel(application)
 
         setContent {
             ListArticlePage(viewModel)
@@ -52,10 +54,10 @@ fun ListArticlePage(viewModel: ArticleViewModel) {
                 .padding(top = 10.dp)
         ) {
             Spacer(modifier = Modifier.height(140.dp))
-            TitlePage("Articles")
+            TitlePage(stringResource(R.string.articles_title))
             Spacer(modifier = Modifier.height(40.dp))
             EniButton(
-                label = "Rachaîchir les articles", onClick = {
+                label = stringResource(R.string.articles_refresh), onClick = {
                     viewModel.reloadArticles()
                 })
             ArticleListView(viewModel)
@@ -81,5 +83,5 @@ fun ArticleListView(viewModel: ArticleViewModel) {
 @Preview(showBackground = true)
 @Composable
 fun ListArticlePreview() {
-    ListArticlePage(ArticleViewModel())
+    ListArticlePage(ArticleViewModel(Application()))
 }

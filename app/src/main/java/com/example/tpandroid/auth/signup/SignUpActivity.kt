@@ -15,6 +15,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.tpandroid.R
@@ -69,52 +70,52 @@ fun SignUpPage(viewModel: MutableStateFlow<SignUpViewModel>) {
                 .padding(40.dp)
         ) {
             Spacer(modifier = Modifier.height(80.dp))
-            TitlePage("Sign Up")
+            TitlePage(stringResource(R.string.signup_title))
             Spacer(modifier = Modifier.height(20.dp))
             WrapPadding {
                 EniTextField(
                     value = viewModelState.signUpRequest.pseudo,
                     onValueChange = { value -> updateSignUpField(viewModel, update = { it -> it.copy(pseudo = value) }) },
-                    hintText = "Pseudo")
+                    hintText = stringResource(R.string.field_pseudo_hint))
             }
             WrapPadding {
                 EniTextField(
                     value = viewModelState.signUpRequest.email,
                     onValueChange = { value -> updateSignUpField(viewModel, update = { it -> it.copy(email = value) }) },
-                    hintText = "Email")
+                    hintText = stringResource(R.string.field_email_hint))
             }
             WrapPadding {
                 EniTextField(
                     value = viewModelState.signUpRequest.password,
                     onValueChange = { value -> updateSignUpField(viewModel, update = { it -> it.copy(password = value) }) },
-                    hintText = "Password")
+                    hintText = stringResource(R.string.field_password_hint))
             }
             WrapPadding {
                 EniTextField(
                     value = viewModelState.signUpRequest.passwordConfirm,
                     onValueChange = { value -> updateSignUpField(viewModel, update = { it -> it.copy(passwordConfirm = value) }) },
-                    hintText = "Password Confirmation")
+                    hintText = stringResource(R.string.field_password_confirm_hint))
             }
             WrapPadding {
                 EniTextField(
                     value = viewModelState.signUpRequest.cityCode,
                     onValueChange = { value -> updateSignUpField(viewModel, update = { it -> it.copy(cityCode = value) }) },
-                    hintText = "City Code")
+                    hintText = stringResource(R.string.field_city_code_hint))
             }
             WrapPadding {
                 EniTextField(
                     value = viewModelState.signUpRequest.city,
                     onValueChange = { value -> updateSignUpField(viewModel, update = { it -> it.copy(city = value)  }) },
-                    hintText = "City")
+                    hintText = stringResource(R.string.field_city_hint))
             }
             WrapPadding {
                 EniTextField(
                     value = viewModelState.signUpRequest.phone,
                     onValueChange = { value -> updateSignUpField(viewModel, update = { it -> it.copy(phone = value) }) },
-                    hintText = "Phone Number")
+                    hintText = stringResource(R.string.field_phone_hint))
             }
             WrapPadding {
-                EniButton(label = "Confirm", onClick = {
+                EniButton(label = stringResource(R.string.btn_confirm), onClick = {
                     viewModelState.callSignUpApi(onSignUpSuccess = {
                         AppContextHelper.openActivity(context, LoginActivity::class)
                     })

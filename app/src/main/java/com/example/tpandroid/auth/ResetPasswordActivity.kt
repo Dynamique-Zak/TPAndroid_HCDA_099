@@ -14,8 +14,10 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.example.tpandroid.R
 import com.example.tpandroid.auth.login.AuthViewModel
 import com.example.tpandroid.ui.theme.EniButton
 import com.example.tpandroid.ui.theme.EniLogo
@@ -56,16 +58,16 @@ fun ResetPasswordPage(viewModel : MutableStateFlow<AuthViewModel>) {
         ) {
             EniLogo()
             Spacer(modifier = Modifier.height(180.dp))
-            TitlePage("Password Recovery")
+            TitlePage(stringResource(R.string.password_recovery_title))
             Spacer(modifier = Modifier.height(60.dp))
             WrapPadding {
                 EniTextField(
                     value = viewModelState.resetPasswordRequest.email,
                     onValueChange = { value -> viewModel.value = viewModel.value.copy(resetPasswordRequest = viewModelState.resetPasswordRequest.copy(email = value))},
-                    hintText = "Veuillez saisir un email")
+                    hintText = stringResource(R.string.field_email_hint))
             }
             WrapPadding {
-                EniButton(label = "Send link recovery", onClick = {
+                EniButton(label = stringResource(R.string.btn_send_link_recovery), onClick = {
                     viewModelState.callResetPasswordApi()
                 })
             }

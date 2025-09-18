@@ -1,10 +1,15 @@
 package com.example.tpandroid.article
 
+import android.app.Application
+import androidx.compose.ui.res.stringResource
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.tpandroid.R
 import com.example.tpandroid.common.AppAlertHelpers
 import com.example.tpandroid.common.AppContextHelper.Companion.debugLoading
 import com.example.tpandroid.common.AppProgressHelpers
+import com.example.tpandroid.common.ENIViewModel
 import com.example.tpandroid.common.commonCallApi
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -12,7 +17,7 @@ import kotlinx.coroutines.launch
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.seconds
 
-class ArticleViewModel : ViewModel() {
+class ArticleViewModel(application: Application) : ENIViewModel(application) {
 
     var articles = MutableStateFlow<List<Article>>(mutableListOf())
 
@@ -23,7 +28,7 @@ class ArticleViewModel : ViewModel() {
         ))
     fun reloadArticleDetail(id: String){
         // Affiche un ecran de chargement avant un appel async
-        AppProgressHelpers.get().show("Chargement de l'article")
+        AppProgressHelpers.get().show(getString(R.string.article_loading_msg))
 
         viewModelScope.launch {
 
@@ -41,8 +46,7 @@ class ArticleViewModel : ViewModel() {
     }
 
     fun reloadArticles(){
-
-        commonCallApi<List<Article>>("Chargement des articles", viewModelScope, doAction = {
+        commonCallApi<List<Article>>(getString(R.string.articles_loading_msg), viewModelScope, doAction = {
             val apiResponse = ArticleService.ArticleApi.articleService.getArticles()
             articles.value = apiResponse.data!!
 
@@ -52,7 +56,7 @@ class ArticleViewModel : ViewModel() {
 
     fun saveArticle(){
         // Affiche un ecran de chargement avant un appel async
-        AppProgressHelpers.get().show("Sauvegarde de l'article")
+        AppProgressHelpers.get().show(getString(R.string.articles_start_save_msg))
 
         viewModelScope.launch {
 
@@ -71,7 +75,7 @@ class ArticleViewModel : ViewModel() {
 
     fun deleteArticle(id: String){
         // Affiche un ecran de chargement avant un appel async
-        AppProgressHelpers.get().show("Suppression de l'article")
+        AppProgressHelpers.get().show(getString(R.string.articles_delete_loading_msg))
 
         viewModelScope.launch {
 
