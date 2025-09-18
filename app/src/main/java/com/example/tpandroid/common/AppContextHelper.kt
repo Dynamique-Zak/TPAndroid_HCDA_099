@@ -2,9 +2,7 @@ package com.example.tpandroid.common
 
 import android.content.Context
 import android.content.Intent
-import androidx.lifecycle.viewModelScope
 import com.example.tpandroid.api.ApiResponse
-import com.example.tpandroid.article.ArticleService
 import com.example.tpandroid.common.AppContextHelper.Companion.debugLoading
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.delay
@@ -12,7 +10,6 @@ import kotlinx.coroutines.launch
 import kotlin.reflect.KClass
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.milliseconds
-import kotlin.time.Duration.Companion.seconds
 
 class AppContextHelper {
 
@@ -44,7 +41,7 @@ class AppContextHelper {
     }
 }
 
-fun <T> commonCallApi(loadingMsg : String = "Chargement", coroutineScope : CoroutineScope, doAction: suspend () -> ApiResponse<T>){
+fun <T> commonCallApi(loadingMsg : String = "Chargement", coroutineScope : CoroutineScope, doAction: suspend () -> ApiResponse<T>, onClose : (ApiResponse<T>) -> Unit = {}){
 
     // Affiche un ecran de chargement avant un appel async
     AppProgressHelpers.get().show(loadingMsg)
@@ -60,6 +57,6 @@ fun <T> commonCallApi(loadingMsg : String = "Chargement", coroutineScope : Corou
         AppProgressHelpers.get().close()
 
         // Afficher le message du back
-        AppAlertHelpers.get().show(apiResponse.message)
+        AppAlertHelpers.get().show(apiResponse.message, onClose = { onClose(apiResponse) })
     }
 }
