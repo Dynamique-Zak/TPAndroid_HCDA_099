@@ -1,5 +1,6 @@
 package com.example.tpandroid.auth.signup
 
+import android.app.Application
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -38,7 +39,7 @@ class SignUpActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
 
-        viewModel = MutableStateFlow(SignUpViewModel())
+        viewModel = MutableStateFlow(SignUpViewModel(application))
 
         setContent {
             SignUpPage(viewModel)
@@ -128,6 +129,6 @@ fun SignUpPage(viewModel: MutableStateFlow<SignUpViewModel>) {
 @Preview(showBackground = true)
 @Composable
 fun SignUpPreview() {
-    val viewModel = MutableStateFlow(SignUpViewModel())
+    val viewModel = MutableStateFlow(SignUpViewModel(Application()))
     SignUpPage(viewModel)
 }

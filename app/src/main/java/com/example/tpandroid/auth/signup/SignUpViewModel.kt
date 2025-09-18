@@ -12,7 +12,7 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlin.time.Duration.Companion.seconds
 
-data class SignUpViewModel(val application: Application, var signUpRequest: SignUpRequest = SignUpRequest()) : ENIViewModel(application) {
+data class SignUpViewModel(val _application: Application, var signUpRequest: SignUpRequest = SignUpRequest()) : ENIViewModel(_application) {
 
     fun callSignUpApi(onSignUpSuccess : () -> Unit = {}){
 

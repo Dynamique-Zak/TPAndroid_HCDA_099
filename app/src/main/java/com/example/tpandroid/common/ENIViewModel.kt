@@ -4,10 +4,9 @@ import android.app.Application
 import androidx.annotation.StringRes
 import androidx.lifecycle.AndroidViewModel
 
-open class ENIViewModel(application: Application) : AndroidViewModel(application) {
-
+public open class ENIViewModel(application: Application) : AndroidViewModel(application) {
 
     fun getString(@StringRes resId: Int) : String {
-        return this.getApplication<Application>().getString(resId);
+        return getApplication<Application>().getString(resId);
     }
 }

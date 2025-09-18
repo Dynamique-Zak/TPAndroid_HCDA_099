@@ -14,7 +14,7 @@ import com.example.tpandroid.common.ENIViewModel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
-data class AuthViewModel(val application: Application, var email: String = "", var password: String = "", var resetPasswordRequest: ResetPasswordRequest = ResetPasswordRequest()) : ENIViewModel(application) {
+data class AuthViewModel(val _application: Application, var email: String = "", var password: String = "", var resetPasswordRequest: ResetPasswordRequest = ResetPasswordRequest()) : ENIViewModel(_application) {
 
     fun callLoginApi(onLoginSuccess : () -> Unit = {}){
 

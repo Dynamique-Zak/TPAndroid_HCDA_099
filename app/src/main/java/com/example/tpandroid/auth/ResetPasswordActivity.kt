@@ -1,5 +1,6 @@
 package com.example.tpandroid.auth
 
+import android.app.Application
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -35,7 +36,7 @@ class ResetPasswordActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
 
-        viewModel = MutableStateFlow(AuthViewModel(resetPasswordRequest = ResetPasswordRequest(email = "user@example.com")))
+        viewModel = MutableStateFlow(AuthViewModel(application, resetPasswordRequest = ResetPasswordRequest(email = "user@example.com")))
 
         setContent {
             ResetPasswordPage(viewModel)
@@ -79,7 +80,7 @@ fun ResetPasswordPage(viewModel : MutableStateFlow<AuthViewModel>) {
 @Composable
 fun ResetPasswordPreview() {
 
-    val viewModel = MutableStateFlow(AuthViewModel(resetPasswordRequest = ResetPasswordRequest(email = "user@example.com")))
+    val viewModel = MutableStateFlow(AuthViewModel(Application(), resetPasswordRequest = ResetPasswordRequest(email = "user@example.com")))
 
     ResetPasswordPage(viewModel)
 }

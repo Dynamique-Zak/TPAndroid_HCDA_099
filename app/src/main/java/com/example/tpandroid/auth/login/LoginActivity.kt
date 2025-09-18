@@ -1,5 +1,6 @@
 package com.example.tpandroid.auth.login
 
+import android.app.Application
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -39,7 +40,7 @@ class LoginActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
 
-        viewModel = MutableStateFlow(AuthViewModel(email = "isaac@gmail.com", password = "password"))
+        viewModel = MutableStateFlow(AuthViewModel(application, email = "isaac@gmail.com", password = "password"))
 
         setContent {
             LoginPage(viewModel)
@@ -103,7 +104,7 @@ fun LoginPage(viewModel: MutableStateFlow<AuthViewModel>) {
 @Preview(showBackground = true)
 @Composable
 fun LoginPreview() {
-    val viewModel = MutableStateFlow(AuthViewModel(email = "isaac@gmail.com", password = "password"))
+    val viewModel = MutableStateFlow(AuthViewModel(Application(), email = "isaac@gmail.com", password = "password"))
 
     LoginPage(viewModel)
 }
