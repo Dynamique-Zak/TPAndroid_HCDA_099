@@ -9,6 +9,8 @@ import kotlinx.coroutines.flow.MutableStateFlow
 
 class ArticleViewModel(application: Application) : ENIViewModel(application) {
 
+    var articleListener : ArticleListener? = null
+
     var articles = MutableStateFlow<List<Article>>(mutableListOf())
 
     var article = MutableStateFlow<Article>(

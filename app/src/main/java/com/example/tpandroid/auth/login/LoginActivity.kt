@@ -20,7 +20,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.tpandroid.R
-import com.example.tpandroid.article.ListArticleActivity
+import com.example.tpandroid.article.ArticleActivity
 import com.example.tpandroid.auth.ResetPasswordActivity
 import com.example.tpandroid.auth.signup.SignUpActivity
 import com.example.tpandroid.common.AppContextHelper
@@ -82,7 +82,7 @@ fun LoginPage(viewModel: MutableStateFlow<AuthViewModel>) {
             WrapPadding {
                 EniButton(label = stringResource(R.string.btn_login), onClick = {
                     viewModelState.callLoginApi(onLoginSuccess = {
-                        AppContextHelper.openActivity(context, ListArticleActivity::class)
+                        AppContextHelper.openActivity(context, ArticleActivity::class)
                     })
                 })
             }

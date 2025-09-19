@@ -20,6 +20,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavType
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import com.example.tpandroid.R
 import com.example.tpandroid.ui.theme.ArticleCard
 import com.example.tpandroid.ui.theme.EniButton
@@ -27,10 +32,9 @@ import com.example.tpandroid.ui.theme.TemplatePage
 import com.example.tpandroid.ui.theme.TitlePage
 import com.example.tpandroid.ui.theme.WrapPadding
 
-class ListArticleActivity : ComponentActivity() {
+class ArticleActivity : ComponentActivity() {
 
     lateinit var viewModel: ArticleViewModel
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -38,50 +42,44 @@ class ListArticleActivity : ComponentActivity() {
         viewModel = ArticleViewModel(application)
 
         setContent {
-            ListArticlePage(viewModel)
+            ArticlePage(viewModel)
         }
     }
 }
 
 @Composable
-fun ListArticlePage(viewModel: ArticleViewModel) {
-    TemplatePage(backgroundId = R.drawable.mobile_bg_02) {
-        Column(
-            horizontalAlignment = Alignment.CenterHorizontally,
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(40.dp)
-                .padding(top = 10.dp)
-        ) {
-            Spacer(modifier = Modifier.height(140.dp))
-            TitlePage(stringResource(R.string.articles_title))
-            Spacer(modifier = Modifier.height(40.dp))
-            EniButton(
-                label = stringResource(R.string.articles_refresh), onClick = {
-                    viewModel.reloadArticles()
-                })
-            ArticleListView(viewModel)
+fun ArticlePage(viewModel: ArticleViewModel) {
+
+    val navController = rememberNavController()
+
+    // Redéfinir ce qu'on fait dans les 3 evenements
+    viewModel.articleListener = ArticleListener(
+        onRequestView = { article -> navController.navigate("detail/${article.id!!}") },
+        onRequestEdit = { article -> navController.navigate("form") },
+        onRequestDelete = { article -> viewModel.deleteArticle(article.id!!) },
+    )
+
+    NavHost(navController, startDestination = "list"){
+        composable("list") { ListArticlePage(viewModel) }
+
+        composable("detail/{id}",
+            arguments = listOf(navArgument("id") { type = NavType.StringType})) {
+            backStackEntry ->
+            val id = backStackEntry.arguments?.getString("id")
+
+            // Appel api
+            viewModel.reloadArticleDetail(id!!)
+
+            ArticleDetailsPage(viewModel)
         }
+
+        composable("form") { ArticleFormPage(viewModel) }
     }
 }
 
-@Composable
-fun ArticleListView(viewModel: ArticleViewModel) {
-    val articles by viewModel.articles.collectAsState()
-
-    LazyColumn {
-        items(articles) { article ->
-            WrapPadding {
-                ArticleCard(article, onRequestDelete = {
-                    id -> viewModel.deleteArticle(id)
-                })
-            }
-        }
-    }
-}
 
 @Preview(showBackground = true)
 @Composable
-fun ListArticlePreview() {
-    ListArticlePage(ArticleViewModel(Application()))
+fun ArticlePagePreview() {
+    ArticlePage(ArticleViewModel(Application()))
 }

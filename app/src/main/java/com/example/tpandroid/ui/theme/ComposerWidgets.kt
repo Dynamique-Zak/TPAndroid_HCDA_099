@@ -36,7 +36,6 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shadow
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -47,10 +46,8 @@ import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import com.example.tpandroid.R
 import com.example.tpandroid.article.Article
-import com.example.tpandroid.article.ArticleDetailsActivity
-import com.example.tpandroid.article.ArticleFormActivity
+import com.example.tpandroid.article.ArticleListener
 import com.example.tpandroid.common.AlertDialog
-import com.example.tpandroid.common.AppContextHelper
 import com.example.tpandroid.common.ProgressDialog
 
 @Composable
@@ -154,8 +151,7 @@ fun EniButton(label: String = "Invalid", onClick: () -> Unit = {}) {
 }
 
 @Composable
-fun ArticleCard(article: Article, onRequestDelete : (id: String) -> Unit = {}) {
-    val context = LocalContext.current
+fun ArticleCard(article: Article, articleListener: ArticleListener) {
 
     ElevatedCard(modifier = Modifier.fillMaxWidth()) {
         Column {
@@ -172,27 +168,21 @@ fun ArticleCard(article: Article, onRequestDelete : (id: String) -> Unit = {}) {
                 }
                 Column {
                     IconButton(onClick = {
-                        AppContextHelper.openActivityWithString(
-                            context,
-                            ArticleDetailsActivity::class,
-                            "id", article.id!!)
+                        articleListener.onRequestView(article)
                     }) {
                         Icon(
                             imageVector = Icons.Default.Search,
                             contentDescription = "")
                     }
                     IconButton(onClick = {
-                        AppContextHelper.openActivityWithString(
-                            context,
-                            ArticleFormActivity::class,
-                            "id", article.id!!)
+                        articleListener.onRequestEdit(article)
                     }) {
                         Icon(
                             imageVector = Icons.Default.Edit,
                             contentDescription = "")
                     }
                     IconButton(onClick = {
-                        onRequestDelete(article.id!!)
+                        articleListener.onRequestDelete(article)
                     }) {
                         Icon(
                             imageVector = Icons.Default.Delete,
