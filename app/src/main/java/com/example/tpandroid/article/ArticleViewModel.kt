@@ -68,4 +68,8 @@ class ArticleViewModel(application: Application) : ENIViewModel(application) {
                 reloadArticles()
             })
     }
+
+    fun clearArticle() {
+        article.value = Article()
+    }
 }
